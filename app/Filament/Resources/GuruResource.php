@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SiswaResource\Pages;
-use App\Filament\Resources\SiswaResource\RelationManagers;
-use App\Models\Siswa;
+use App\Filament\Resources\GuruResource\Pages;
+use App\Filament\Resources\GuruResource\RelationManagers;
+use App\Models\Guru;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,46 +13,33 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SiswaResource extends Resource
+class GuruResource extends Resource
 {
-    protected static ?string $model = Siswa::class;
+    protected static ?string $model = Guru::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nis')
-                    ->required()
-                    ->maxLength(10),
-                    Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('nip')
                     ->required()
                     ->maxLength(255),
-                    Forms\Components\Select::make('kelas_id')
-                    ->relationship('kelas', 'name')
-                    ->required(),
-                    Forms\Components\Select::make('jurusan_id')
-                    ->relationship('jurusan', 'name')
-                    ->required(),
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255)
             ]);
     }
-
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nis')
+                Tables\Columns\TextColumn::make('nip')
                 ->searchable()
                 ->sortable(),
                 Tables\Columns\TextColumn::make('name')
-                ->searchable()
-                ->sortable(),
-                Tables\Columns\TextColumn::make('kelas.name')
-                ->searchable()
-                ->sortable(),
-                Tables\Columns\TextColumn::make('jurusan.name')
                 ->searchable()
                 ->sortable()
             ])
@@ -79,9 +66,9 @@ class SiswaResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSiswas::route('/'),
-            'create' => Pages\CreateSiswa::route('/create'),
-            'edit' => Pages\EditSiswa::route('/{record}/edit'),
+            'index' => Pages\ListGurus::route('/'),
+            'create' => Pages\CreateGuru::route('/create'),
+            'edit' => Pages\EditGuru::route('/{record}/edit'),
         ];
     }
 }

@@ -6,24 +6,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Siswa extends Model
+class Kelas extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'nis',
         'name',
-        'kelas_id',
+        'guru_id',
         'jurusan_id'
     ];
 
-    public function jurusan(): BelongsTo
+    public function jurusan() :BelongsTo
     {
-        return $this->belongsTo(Jurusan::class);
+        return $this->BelongsTo(Jurusan::class);
     }
 
-    public function kelas(): BelongsTo
+    public function guru() :BelongsTo
     {
-        return $this->belongsTo(Kelas::class);
+        return $this->BelongsTo(Guru::class);
     }
 }
